@@ -1,0 +1,66 @@
+/* Global styles and Bootstrap imports */
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+:root {
+  --brand-primary: rgb(215, 138, 112);
+  --brand-secondary: rgb(157, 100, 117);
+}
+
+.nav-item-text {
+  font-size: 20px;
+  color: rgb(243, 243, 226);
+  font-weight: 550;
+}
+
+.my-button {
+  font-size: 20px;
+  color: beige;
+  background-color: darksalmon;
+  border-color: burlywood;
+  transition: background-color 0.3s ease;
+}
+
+.my-button:hover {
+  background-color: #ecd6ce;
+  border-color: burlywood;
+}
+
+body {
+  padding-top: 70px;
+  background-color: rgb(239, 232, 232);
+}
+
+.normal-text {
+  color: rgb(163, 99, 77);
+}
+
+hr.rounded {
+  border-top: 4px solid #bbb;
+  border-radius: 5px;
+  width: 97%;
+  margin: auto;
+}
+
+.column-overview {
+  text-align: center;
+  background-color: rgb(250, 221, 184);
+  border-radius: 15px;
+  padding: 8px;
+  margin: 5px;
+}
+
+.q-action-button {
+  font-size: 18px;
+  background-color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--border-color);
+  color: var(--border-color);
+}
+
+.q-action-button:hover {
+  background-color: var(--border-color);
+  color: white;
+}
