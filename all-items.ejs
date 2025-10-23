@@ -1,0 +1,208 @@
+<%- include('partials/header', {title: 'Pantry+ All Items', user:user}) %>
+
+<h1 style="font-size: 55px; margin-top: 50px; font-weight: bolder;">Complete Inventory</h1>
+
+<h4 style="margin-top: 20px; font-weight:lighter;">View and manage all the item in your inventory</h4>
+
+<div class="container" style="width: 90%;">
+
+
+<div class="row mt-4 mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Value</h5>
+                <h2 class="text-success">$<%= inventoryStats.totalValue.toFixed(2) %></h2>
+                <small class="text-muted"><%= inventoryStats.totalItems %> Items</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Expired</h5>
+                <h2 class="text-danger"><%= inventoryStats.expiredCount %></h2>
+                <small class="text-muted">Items past expiration</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Expiring Soon</h5>
+                <h2 class="text-warning"><%= inventoryStats.expiringSoonCount %></h2>
+                <small class="text-muted">Within 7 days</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Low Stock</h5>
+                <h2 class="text-info"><%= inventoryStats.lowStockCount %></h2>
+                <small class="text-muted">Quantity &lt; 5</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alerts Section -->
+<% if (expiredItems.length > 0 || expiringSoonItems.length > 0 || lowStockItems.length > 0) { %>
+<div class="row mb-4">
+    <!-- Expired Items Alert -->
+    <% if (expiredItems.length > 0) { %>
+    <div class="col-md-4">
+        <div class="alert alert-danger">
+            <h6 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> Expired Items</h6>
+            <hr>
+            <ul class="mb-0" style="max-height: 150px; overflow-y: auto;">
+                <% expiredItems.forEach(item => { %>
+                <li><strong><%= item.ingredientName %></strong> - Expired <%= item.daysExpired %> days ago</li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+    <% } %>
+
+    <!-- Expiring Soon Alert -->
+    <% if (expiringSoonItems.length > 0) { %>
+    <div class="col-md-4">
+        <div class="alert alert-warning">
+            <h6 class="alert-heading"><i class="bi bi-exclamation-circle-fill"></i> Expiring Soon</h6>
+            <hr>
+            <ul class="mb-0" style="max-height: 150px; overflow-y: auto;">
+                <% expiringSoonItems.forEach(item => { %>
+                <li><strong><%= item.ingredientName %></strong> - <%= item.daysUntilExpiry %> days left</li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+    <% } %>
+
+    <% if (lowStockItems.length > 0) { %>
+    <div class="col-md-4">
+        <div class="alert alert-info">
+            <h6 class="alert-heading"><i class="bi bi-info-circle-fill"></i> Low Stock Items</h6>
+            <hr>
+            <ul class="mb-0" style="max-height: 150px; overflow-y: auto;">
+                <% lowStockItems.forEach(item => { %>
+                <li><strong><%= item.ingredientName %></strong> - <%= item.quantity %> <%= item.unit %></li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+    <% } %>
+</div>
+<% } %>
+
+
+
+<div class="mt-3 d-flex justify-content-between mb-4" style="margin-top: 20px; align-items: center;">
+    <div>
+        <a href="/api/add-item-33968748?userId=<%=user.userId%>" class="btn my-button">Add New Item</a>
+        <a href="/api/delete-item-33968748?userId=<%=user.userId%>" class="btn q-action-button" style="--border-color:red">Delete Item</a>
+    </div>
+   
+</div>
+
+
+<div class="card" style="width: 100%; padding: 10px;">
+    <div class="card-body" style="text-align: start; padding: 20px;">
+        <div class="d-flex justify-content-between">
+            <h4>Inventory</h4>
+            <h4>Total Value: $<%= inventoryStats.totalValue.toFixed(2) %></h4>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Inventory ID</th>
+                    <th>Name</th>
+                    <th>Owner</th>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                    <th>Category</th>
+                    <th>Purchase Date</th>
+                    <th>Expiration Date</th>
+                    <th>Location</th>
+                    <th>Cost</th>
+                    <th>Created</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% inventory.forEach(item => { 
+                    const today = new Date();
+                    const expireDate = new Date(item.expirationDate);
+                    const daysUntilExp = Math.ceil((expireDate - today) / (1000 * 60 * 60 * 24));
+                    
+                    let expirationStatusIcon = "";
+                    let statusClass = '';
+                    let statusText = '';
+                    
+                    if (daysUntilExp < 0) {
+                        expirationStatusIcon = 'bi-exclamation-triangle-fill';
+                        statusClass = 'text-danger';
+                        statusText = 'Expired';
+                    } else if (daysUntilExp <= 3) {
+                        expirationStatusIcon = 'bi-exclamation-circle-fill';
+                        statusClass = 'text-warning';
+                        statusText = 'Expiring Soon';
+                    } else {
+                        expirationStatusIcon = 'bi-check-circle-fill';
+                        statusClass = 'text-success';
+                        statusText = 'Good';
+                    }
+                %>
+                <tr>
+                    <td>
+                        <i class="<%= expirationStatusIcon %> <%= statusClass %>" 
+                           title="<%= statusText %>"></i> <%= statusText %>
+                    </td>
+                    <td><%= item.inventoryId %></td>
+                    <td><%= item.ingredientName %></td>
+                    <td><%= item.userId %></td>
+                    <td>
+                        <%= item.quantity %> 
+                        <% if (item.quantity < 5) { %>
+                            <span class="badge bg-info">Low Stock</span>
+                        <% } else { %>
+                            <span class="badge bg-success">In Stock</span>
+                        <% } %>
+                    </td>
+                    <td><%= item.unit %></td>
+                    <td><%= item.category %></td>
+                    <td><%= item.purchaseDate.toISOString().split("T")[0]; %></td>
+                    <td class="<%= statusClass %>">
+                        <%= item.expirationDate.toISOString().split("T")[0]; %>
+                        <% if (daysUntilExp < 0) { %>
+                            <br><small>(<%= Math.abs(daysUntilExp) %> days ago)</small>
+                        <% } else if (daysUntilExp <= 7) { %>
+                            <br><small>(<%= daysUntilExp %> days left)</small>
+                        <% } %>
+                    </td>
+                    <td><%= item.location %></td>
+                    <td>$<%= item.cost.toFixed(2) %></td>
+                    <td><%= item.createdDate.toISOString().split("T")[0]; %></td>
+                    <td>
+                        <form action="/api/delete-item-33968748?userId=<%=user.userId%>" method="POST" 
+                              onsubmit="return confirm('Are you sure you want to delete <%= item.ingredientName %>?')">
+                            <input type="hidden" name="inventoryId" value="<%= item.inventoryId %>">
+                            <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete item">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-body" style="text-align: start; padding: 10px;"></div>
+</div>
+</div>
+
+<%- include('partials/footer', {pageName : "All Items"}) %>

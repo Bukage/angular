@@ -1,0 +1,103 @@
+<%- include('partials/header', {title: 'Pantry+ Delete Item', user:user}) %>
+<h1 style="font-size: 55px; margin-top: 50px; font-weight: bolder; color: rgb(212, 24, 24);">Delete Item</h1>
+
+<h4 style="margin-top: 20px; font-weight:lighter;">Remove a item from the inventory</h4>
+
+<div class="d-flex justify-content-center" style="margin-top: 20px;" >
+    <div class="card" style="width: 50%;">
+        <form action="/api/delete-item-33968748" method="GET">
+            <input type="hidden" name="userId" value="<%= user.userId %>">
+            <div class="card-body" style="text-align: start; padding: 20px;">
+            <h4>Select Item to Remove</h4>
+            <div style="width: 50%;">
+            <label for="itemSelect" class="form-label">Select from List</label>
+            <select name="inventoryId" id="itemSelect" class="form-select" required onchange="this.form.submit()">
+                <option value="" selected disabled>Select from the items below</option>
+                <% inventory.forEach(item => { %>
+                    <option value=<%=item.inventoryId%> <%= (itemSelect && item.inventoryId === itemSelect.inventoryId) ? "selected" : ""%>><%=item.inventoryId%> - <%=item.ingredientName%></option>
+                    <%})%>
+            </select>
+            </div>
+        </form>
+            
+            <h4 class="mt-4">Recipe Preview</h4>
+          
+            <form action="/api/delete-item-33968748?userId=<%=user.userId%>" method="POST">
+             
+                <div class="card">
+                    <% if (itemSelect) { %>
+                        <input type="hidden" name="inventoryId" value="<%= itemSelect.inventoryId %>">
+                <div class="card-header text-white" style="background-color: rgb(212, 24, 24); border-color:rgb(212, 24, 24); border-style: solid; border-width: 1px;">
+                    <h5><%=itemSelect.ingredientName%></h5>
+                    <small>owned by <%= itemSelect.userId%></small>
+                </div>
+                 <% } %>
+                <div class="card-body" style="border-color:rgb(212, 24, 24); border-style: solid; border-width: 2px;">
+                     <% if (itemSelect) { %>
+                    <div class="row">
+                        <div class="col-6">
+                            <p><strong>Inventory ID:</strong> <%=itemSelect.inventoryId%></p>
+                            <p><strong>Quantity:</strong> <%=itemSelect.quantity%> <%=itemSelect.unit%></p>
+                            <p><strong>Category:</strong> <%=itemSelect.category%></p>
+                            <p><strong>Cost:</strong> $<%=itemSelect.cost%></p>
+
+                           
+
+
+                           
+                        </div>
+                         <div class="col-6">
+                            <p><strong>Location:</strong> <%=itemSelect.location%></p>
+                            <p><strong>Purchase Date:</strong> <%=itemSelect.purchaseDate%></p>
+                            <p><strong>Expiration Date:</strong> <%=itemSelect.expirationDate%></p>
+                           
+
+
+                           
+                        </div>
+
+                    </div>
+                    
+                    <div class="alert alert-danger mt-3" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"> </i>This item will be permanently deleted!   
+
+                    </div>
+                    <% } %>
+                </div>
+               
+            </div> 
+            <div class ="form-check my-3">
+                <input type="checkbox" class="form-check-input" id="confirmationCheckbox" style="border-color: red;" required>
+                <label for="confirmationCheckbox" class="form-check-label text-danger">
+                    I understand that this action cannot be undone and I want to permenantly delete this item.
+                </label>
+
+            </div>
+            <div class="d-flex justify-content-end">
+                <div>
+                <a href="/api/all-items-33968748?userId=<%=user.userId%>" class="btn q-action-button" style="--border-color: black;">Back to Inventory</a>
+                <a href="/api/delete-item-33968748?userId=<%=user.userId%>" class="btn q-action-button" style="--border-color: rgb(48, 48, 212);" >Reset Selection</a>
+
+              <button type="submit" class="btn q-action-button" style="--border-color: red;" <% if (!itemSelect) { %> disabled <% } %>>
+            Delete Item
+        </button>
+
+</div>
+            </div>
+        
+        </form>
+           
+
+           
+</div>
+
+
+        
+
+        </form>
+        </div>
+</div>
+
+
+
+<%- include('partials/footer', {pageName : "Delete Item"}) %>   

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <title><%= title %></title>
+    
+    <link href="/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="/css/a1-style.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/bootstrap-icons.css">
+</head>
+    
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark mb-4 fixed-top" style="background-color: darksalmon; min-height: 70px;" >
+        <div class="container-fluid">
+
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <img src="/imgs/logo_v2.png" style="width:77px;" class="rounded-pill">
+                    <span style="color: beige; font-weight: bolder; font-size: 32px; padding-left: 18px; padding-bottom: 2px; ">Pantry+</span>
+                </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="align-items: center;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+<div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto gap-2">
+                <li class="nav-item">
+                    <a class="nav-link nav-item-text" href="/api/home-33968748?userId=<%= user.userId %>">Home</a>
+                </li>
+                 <% if (user.role === 'chef') { %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle nav-item-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Recipes</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/api/add-recipe-33968748?userId=<%= user.userId %>">Add Recipe</a></li>
+                        <li><a class="dropdown-item" href="/api/all-recipes-33968748?userId=<%= user.userId %>">View All Recipes</a></li>
+                        <li><a class="dropdown-item" href="/api/update-recipe-33968748?userId=<%= user.userId %>">Update Recipe</a></li>
+                        <li><a class="dropdown-item" href="/api/delete-recipe-33968748?userId=<%= user.userId %>">Delete Recipe</a></li>
+                    </ul>
+                </li>
+
+                  <% } %>
+                 <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle nav-item-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventory</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/api/add-item-33968748?userId=<%= user.userId %>">Add Inventory Item</a></li>
+                        <li><a class="dropdown-item" href="/api/all-items-33968748?userId=<%= user.userId %>">View Inventory</a></li>
+                        <li><a class="dropdown-item" href="/api/update-item-33968748?userId=<%= user.userId %>">Update Item</a></li>
+                        <li><a class="dropdown-item" href="/api/delete-item-33968748?userId=<%= user.userId %>">Delete Item</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle nav-item-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">HD Task</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/api/filter-recipe-33968748">Filter Recipes</a></li>
+                        <li><a class="dropdown-item" href="#">Search & Scale</a></li>
+                        <li><a class="dropdown-item" href="#">Smart Alerts</a></li>
+                                                <li><a class="dropdown-item" href="#">Recipe Integration</a></li>
+
+                    </ul>   
+                </li>
+            </ul>
+
+
+            </div>
+            <div class="nav-item dropdown ms-auto">
+                <a class="nav-link dropdown-toggle nav-item-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: lighter;">
+                    Welcome, <%= user.fullname %>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="/">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        
+ 
+
+    </nav>
+    
+    <div class="container-fluid" style="text-align: center; align-items: center; ">                                                                      

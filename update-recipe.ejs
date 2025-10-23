@@ -1,0 +1,118 @@
+<%- include('partials/header', {title: 'Pantry+ Update Recipe', user: user}) %>
+
+<h1 style="font-size: 55px; margin-top: 50px; font-weight: bolder;">Update Recipe</h1>
+
+<h4 style="margin-top: 20px; font-weight:lighter;">Edit an existing recipe</h4>
+
+<div class="d-flex justify-content-center" style="margin-top: 20px;">
+    <div class="card" style="width: 70%;">
+        <form action="/api/update-recipe-33968748" method="GET">
+                        <input type="hidden" name="userId" value="<%= user.userId %>">
+
+            <div class="card-body" style="text-align: start; padding: 20px;">
+                <h4>Select Recipe to Update</h4>
+                <div style="width: 50%;">
+                    <label for="recipeSelect" class="form-label">Select from Your Recipes</label>
+                    <select name="recipeId" id="recipeSelect" class="form-select" required onchange="this.form.submit()">
+                        <option value="" selected disabled>Select from the recipes below</option>
+                        <% recipes.forEach(recipe => { %>
+                            <option value="<%=recipe.recipeId%>" <%= (selectedRecipe && recipe.recipeId === selectedRecipe.recipeId) ? "selected" : ""%>>
+                                <%=recipe.recipeId%> - <%=recipe.title%>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        <% if (selectedRecipe) { %>
+        <form action="/api/update-recipe-33968748?userId=<%=user.userId%>" method="POST">
+            <div class="card-body" style="text-align: start; padding: 20px;">
+                <input type="hidden" name="recipeId" value="<%= selectedRecipe.recipeId %>">
+                
+                <h4>Recipe Details</h4>
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label for="title" class="form-label">Recipe Title</label>
+                        <input type="text" class="form-control" id="title" name="title" 
+                               required value="<%= selectedRecipe.title %>">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="servings" class="form-label">Servings</label>
+                        <input type="text" class="form-control" id="servings" name="servings" 
+                               required value="<%= selectedRecipe.servings %>">
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-2">
+                    <div class="col-md-4">
+                        <label for="mealType" class="form-label">Meal Type</label>
+                        <select name="mealType" id="mealType" class="form-select" required>
+                            <option value="Breakfast" <%= selectedRecipe.mealType === 'Breakfast' ? 'selected' : '' %>>Breakfast</option>
+                            <option value="Lunch" <%= selectedRecipe.mealType === 'Lunch' ? 'selected' : '' %>>Lunch</option>
+                            <option value="Dinner" <%= selectedRecipe.mealType === 'Dinner' ? 'selected' : '' %>>Dinner</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="cuisineType" class="form-label">Cuisine Type</label>
+                        <input type="text" class="form-control" id="cuisineType" name="cuisineType" 
+                               required value="<%= selectedRecipe.cuisineType %>">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="difficulty" class="form-label">Difficulty</label>
+                        <select name="difficulty" id="difficulty" class="form-select" required>
+                            <option value="Easy" <%= selectedRecipe.difficulty === 'Easy' ? 'selected' : '' %>>Easy</option>
+                            <option value="Medium" <%= selectedRecipe.difficulty === 'Medium' ? 'selected' : '' %>>Medium</option>
+                            <option value="Hard" <%= selectedRecipe.difficulty === 'Hard' ? 'selected' : '' %>>Hard</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-2">
+                    <div class="col-md-12">
+                        <label for="prepTime" class="form-label">Preparation Time (minutes)</label>
+                        <input type="text" class="form-control" id="prepTime" name="prepTime" 
+                               required value="<%= selectedRecipe.prepTime %>">
+                    </div>
+                </div>
+
+                <h4 class="mt-3">Ingredients</h4>
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label for="ingredients" class="form-label">Ingredients (one per line)</label>
+                        <textarea class="form-control" id="ingredients" name="ingredients" rows="6" required><%= selectedRecipe.ingredients.join('\n') %></textarea>
+                    </div>
+                </div>
+
+                <h4 class="mt-3">Instructions</h4>
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label for="instructions" class="form-label">Instructions (one step per line)</label>
+                        <textarea class="form-control" id="instructions" name="instructions" rows="8" required><%= selectedRecipe.instructions.join('\n') %></textarea>
+                    </div>
+                </div>
+
+                <% if (errors && errors.length > 0) { %>
+                <div style="color: red; margin-top: 1em;">
+                    <ul>
+                        <% errors.forEach(function(err) { %>
+                        <li><%= err %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+                <% } %>
+
+                <div class="container d-flex justify-content-end mt-3">
+                    <div>
+                        <a href="/api/all-recipes-33968748?userId=<%=user.userId%>" class="btn q-action-button" style="--border-color:black">Back to Recipes</a>
+                        <a href="/api/update-recipe-33968748?userId=<%=user.userId%>" class="btn q-action-button" style="--border-color:blue">Reset Selection</a>
+                        <button type="submit" class="btn my-button" style="font-size: 18px;">Update Recipe</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <% } %>
+    </div>
+</div>
+
+<%- include('partials/footer', {pageName: "Update Recipe"}) %>

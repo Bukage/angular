@@ -1,0 +1,157 @@
+<%- include('partials/header', {title: 'Pantry+ Add Recipe', user: user}) %>
+
+<h1 style="font-size: 55px; margin-top: 50px; font-weight: bolder;">Add New Recipe</h1>
+
+<h4 style="margin-top: 20px; font-weight:lighter;">Log your recipes with detailed instructions and ingredient list</h4>
+
+<div class="d-flex justify-content-center" style="margin-top: 20px;" >
+    <div class="card" style="width: 50%;">
+        <form action="/api/add-recipe-33968748?userId=<%=user.userId%>" method= "POST">
+        <div class="card-body" style="text-align: start; padding: 20px;">
+            <h4>Title & Date</h4>
+            <div class="row g-5">
+            <div class="col-md-8">
+                
+                <label for="title" class="form-label">
+                    Recipe Title
+                </label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="e.g. Chocolate Chip Cookies" required value="<%=formData.title%>">
+            </div>
+            <div class="col-md-4"> 
+                
+                <label for="createdDate" class="form-label">
+                    CreatedDate
+                </label>
+                <input type="text" class="form-control" id="createdDate" name="createdDate" placeholder="Enter date in YYYY-MM-DD format" required value="<%=formData.createdDate%>">
+            </div>
+
+            
+
+                
+
+        </div>
+
+
+
+            
+
+                
+
+       
+<h4 class="mt-3">Recipe Details</h4>
+<div class="row g-3">
+            <div class="col-md-6">
+                
+                <label for="type" class="form-label">
+                    Meal Type
+                </label>
+                <select name="mealType" id="type" class="form-select" required value="<%=formData.mealType%>">
+                    <option  value="" selected disabled>Select meal type...</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>                    
+                    <option value="Dinner">Dinner</option>
+                    <option value="Dinner">Snack</option>
+
+                </select>
+            </div>
+            <div class="col-md-6"> 
+                
+                <label for="cuisineType" class="form-label">
+                    Cuisine Type
+                </label>
+                <select name="cuisineType" id="cuisineType" class="form-select" required value="<%=formData.cuisineType%>">
+                    <option value="" selected disabled>Select Cuisine Type...</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Asian">Asian</option>                    
+                    <option value="Mexican">Mexican</option>
+                    <option value="American">American</option>
+                                        <option value="French">French</option>
+                    <option value="Indian">Indian</option>
+                    <option value="Mediterranean">Mediterranean</option>
+
+
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+          
+
+        </div>
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-4">
+                  <label for="prepTime" class="form-label">
+                    Prep Time (in minutes 1-480)
+                </label>
+                <input type="text" class="form-control" id="prepTime" name="prepTime" required value="<%=formData.prepTime%>"> 
+            
+            </div>
+
+<div class="col-md-4">
+                
+                <label for="difficulty" class="form-label">
+                    Difficulty Level
+                </label>
+                <select name="difficulty" id="difficulty" class="form-select" required value="<%=formData.difficulty%>">
+                    <option  value="" selected disabled>Select difficulty...</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>                    
+                    <option value="Hard">Hard</option>
+
+                </select>
+            </div>
+             <div class="col-md-4">
+                  <label for="servings" class="form-label">
+                    Servings (between 1-20)
+                </label>
+                <input type="text" class="form-control" id="servings" name="servings" required value="<%=formData.servings%>">
+            
+            </div>
+
+        </div>
+         <div class="col-md-12 mt-3" > <h4 >Ingredients</h4>
+        <label for="ingredients" class="form-label">Ingredient List</label>
+        <textarea class="form-control" name="ingredients" id="ingredients" rows="5" placeholder="Enter each ingredient separated by commas or new lines:" 
+        
+        required> <%= formData.ingredients === "" 
+        ? "" 
+        : formData.ingredients %></textarea>
+        <small class="form-text text-muted">
+        Be sure to include quantities and measurements. e.g. 2 cups all purpose flour or 1 tsp vanilla extract</small>
+    </div>
+
+        
+           <div class="col-md-12"> <h4 >Instructions</h4>
+        <label for="instructions" class="form-label">Steps</label>
+        <textarea class="form-control" name="instructions" id="instructions" rows="5" placeholder="Enter step-by-step instructions separated by commas or new lines:" required>
+<%= formData.instructions === "" ? "" : formData.instructions %>
+        </textarea>
+        <small class="form-text text-muted">Separate the steps by new lines. e.g. 1. Preheat oven, 2. ... OR<br>1. Preheat oven <br> 2. ...</small>
+<% if (errors && errors.length > 0) { %>
+  <div style="color: red; margin-bottom: 1em;">
+    <ul>
+      <% errors.forEach(function(err) { %>
+        <li><%= err %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+    </div>
+<div class="container d-flex justify-content-end  mt-3 " >
+    <div>
+        <a href="/api/all-recipes-33968748" class="btn q-action-button" style="--border-color:darksalmon">View Recipes</a>
+        <button type="submit" class="btn my-button" style="font-size: 18px;">Add Recipe</button>
+</div>
+
+
+</div>  
+
+</div>
+        
+    </div>
+</form> 
+</div>
+
+
+<%- include('partials/footer', {pageName : "Add Recipe Page"}) %>   
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <title>Pantry+ Login</title>
+    
+    <link href="/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="/css/a1-style.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/bootstrap-icons.css">
+</head>
+<body style="background: linear-gradient(180deg,  rgb(221, 135, 107) 0%,rgb(238, 170, 147)); min-height: 100vh;">
+    
+<div class="container-fluid" style="text-align: center; align-items: center; ">        
+    
+<div class="d-flex justify-content-center" style="margin-top: 20px;" >
+    <div class="card" style="width: 40%;">
+        <form action="/api/login-33968748" method= "POST">
+        <div class="card-body" style=" padding: 20px;">
+
+            <h1 style="text-align: center; padding-top: 10px; font-weight: bolder; font-size: 40px;">Login</h1>
+            <h4 style="font-size: large; margin-top: 10px; font-weight:lighter; text-align: center;">Access your Pantry+ account</h4>
+
+            
+            <div class="mx-auto" style="max-width: 90%;">
+                <div class="col-md-8" style="text-align: start; width: 100%; margin-bottom: 12px;">
+                <label for="email" class="form-label fw-bold fs-5" style="text-align: start;">
+                    Email Address:
+                </label>
+                <input type="text" class="form-control" id="email" name="email" 
+                       placeholder="Enter your email" required>
+
+                       
+</div>
+                    <div class="col-md-8" style="text-align: start; width: 100%;margin-bottom: 10px;">
+                <label for="password" class="form-label fw-bold fs-5">
+                    Password:
+                </label>
+                <input type="password" class="form-control" id="password" name="password" 
+                       placeholder="Enter your password" required>
+
+                        <% if (typeof error !== "undefined") { %>
+        <div style="color: red; font-weight: bold; margin-top: 10px; text-align: center;">
+            <%= error %>
+        </div>
+    <% } %>
+
+
+                
+</div>
+
+  
+  <button type="submit" class="btn my-button mt-2" style="width: 70%; font-weight: bold;">
+                    <i class="bi bi-person-plus me-2"></i>Login
+                </button>
+          <div class="mt-2 mb-4" style="font-weight: lighter;">
+                Don't have an account? <a href="/api/register-33968748">Register here</a>
+            </div>
+
+        </div>
+         
+
+
+</div>
+        
+    </div>
+</form> 
+</div>
+
+
+    <div style="margin-top: 40px; margin-bottom: 50px; font-weight: lighter; text-align: center;">
+        <i class="bi bi-c-circle"></i>
+        <span>2025 Pantry+ Login - FIT2095 A2</span>
+
+    </div>
+    
+    </div>
+    
+    
+<script src="/bootstrap.bundle.min.js"></script>
+</body> 
+</html>
+
+

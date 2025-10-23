@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <title>Pantry+ User Registration</title>
+    
+    <link href="/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="/css/a1-style.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/bootstrap-icons.css">
+</head>
+<body style="background: linear-gradient(180deg,  rgb(221, 135, 107) 0%,rgb(238, 170, 147)); min-height: 100vh;">
+    
+<div class="container-fluid" style="text-align: center; align-items: center; ">        
+    
+<div class="d-flex justify-content-center" style="margin-top: 20px;" >
+    <div class="card" style="width: 40%;">
+        <form action="/api/register-33968748" method= "POST">
+        <div class="card-body" style=" padding: 20px;">
+
+            <h1 style="text-align: center; padding-top: 10px; font-weight: bolder; font-size: 40px;">Register</h1>
+            <h4 style="font-size: large; margin-top: 10px; font-weight:lighter; text-align: center;">Create your Pantry+ account to start managing your Recipes and Inventory</h4>
+
+            
+            <div class="mx-auto" style="max-width: 90%;">
+                <div class="col-md-8" style="text-align: start; width: 100%; margin-bottom: 12px;">
+                <label for="email" class="form-label fw-bold fs-5" style="text-align: start;">
+                    Email Address:
+                </label>
+                <input type="text" class="form-control" id="email" name="email" 
+                       placeholder="Enter your email" required>
+
+                       <small class="form-text text-muted">e.g. john.doe@gmail.com</small>
+                       
+</div>
+                    <div class="col-md-8" style="text-align: start; width: 100%;margin-bottom: 10px;">
+                <label for="password" class="form-label fw-bold fs-5">
+                    Password:
+                </label>
+                <input type="password" class="form-control" id="password" name="password" 
+                       placeholder="Enter your password" required>
+
+                         <small class="form-text text-muted">Minimum 8 characters, must contain at least one uppercase letter, one lowercase letter, one number, and one special character</small>
+
+                
+</div>
+ <div class="col-md-8" style="text-align: start; width: 100%; margin-bottom: 12px;">
+                <label for="fullname" class="form-label fw-bold fs-5">
+                    Full Name:
+                </label>
+                <input type="fullname" class="form-control" id="fullname" name="fullname" 
+                       placeholder="e.g. John Doe" required>
+
+                
+</div>
+                 <div class="col-md-8" style="text-align: start; width: 100%; margin-bottom: 12px;">
+                
+                <label for="role" class="form-label fw-bold fs-5">
+                    Roles:
+                </label>
+                <select name="role" id="role" class="form-select" required>
+                    <option  value="" selected disabled>Select role...</option>
+                    <option value="chef">Chef</option>
+                    <option value="admin">Admin</option>                    
+                    <option value="manager">Manager</option>
+                   
+
+
+                </select>
+            </div>
+
+
+             <div class="col-md-8" style="text-align: start; width: 100%; margin-bottom: 12px;">
+                <label for="phone" class="form-label fw-bold fs-5">
+                    Phone:
+                </label>
+                <input type="phone" class="form-control" id="phone" name="phone" 
+                       placeholder="Enter phone number" required>
+                         <small class="form-text text-muted">Please enter number in Australian International format: +61 4XX XXX XXX (spaces are not required)</small>
+
+                
+</div>
+<% if (errors && errors.length > 0) { %>
+  <div style="color: red; margin-bottom: 1em;">
+    <ul>
+      <% errors.forEach(function(err) { %>
+        <li><%= err %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+  <button type="submit" class="btn my-button mt-2" style="width: 70%; font-weight: bold;">
+                    <i class="bi bi-person-plus me-2"></i>Register
+                </button>
+          <div class="mt-2 mb-4" style="font-weight: lighter;">
+                Already have an account? <a href="/">Login here</a>
+            </div>
+
+        </div>
+         
+
+
+</div>
+        
+    </div>
+</form> 
+</div>
+
+
+    <div style="margin-top: 40px; margin-bottom: 50px; font-weight: lighter; text-align: center;">
+        <i class="bi bi-c-circle"></i>
+        <span>2025 Pantry+ Registration - FIT2095 A2</span>
+
+    </div>
+    
+    </div>
+    
+    
+<script src="/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

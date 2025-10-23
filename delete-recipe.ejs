@@ -1,0 +1,101 @@
+<%- include('partials/header', {title: 'Pantry+ Delete Recipe', user:user}) %>
+
+
+<h1 style="font-size: 55px; margin-top: 50px; font-weight: bolder; color: rgb(212, 24, 24);">Delete Recipe</h1>
+
+<h4 style="margin-top: 20px; font-weight:lighter;">Remove a recipe from the collection</h4>
+
+<div class="d-flex justify-content-center" style="margin-top: 20px;" >
+    <div class="card" style="width: 50%;">
+        <form action="/api/delete-recipe-33968748?userId=<%= user.userId %>" method="GET">
+            <input type="hidden" name="userId" value="<%= user.userId %>">
+            <div class="card-body" style="text-align: start; padding: 20px;">
+            <h4>Select Recipe to Delete</h4>
+            <div style="width: 50%;">
+            <label for="recipeSelect" class="form-label">Select from List</label>
+            <select name="recipeId" id="recipeSelect" class="form-select" required onchange="this.form.submit()">
+                <option value="" selected disabled>Select from the recipes below</option>
+                <% recipes.forEach(recipe => { %>
+                    <option value=<%=recipe.recipeId%> <%= (recipeSelect && recipe.recipeId === recipeSelect.recipeId) ? "selected" : ""%>><%=recipe.recipeId%> - <%=recipe.title%></option>
+                    <%})%>
+            </select>
+            </div>
+        </form>
+            
+            <h4 class="mt-4">Recipe Preview</h4>
+          
+            <form action="/api/delete-recipe-33968748?userId=<%= user.userId %>" method="POST">
+             
+                <div class="card">
+                    <% if (recipeSelect) { %>
+                        <input type="hidden" name="recipeId" value="<%= recipeSelect.recipeId %>">
+                <div class="card-header text-white" style="background-color: rgb(212, 24, 24); border-color:rgb(212, 24, 24); border-style: solid; border-width: 1px;">
+                    <h5><%=recipeSelect.title%></h5>
+                    <small>by <%= recipeSelect.chef%></small>
+                </div>
+                 <% } %>
+                <div class="card-body" style="border-color:rgb(212, 24, 24); border-style: solid; border-width: 2px;">
+                     <% if (recipeSelect) { %>
+                    <div class="row">
+                        <div class="col-6">
+                            <p><strong>Recipe ID:</strong> <%=recipeSelect.recipeId%></p>
+                            <p><strong>Meal Type:</strong> <%=recipeSelect.mealType%></p>
+                            <p><strong>Cuisine:</strong> <%=recipeSelect.cuisineType%></p>
+                            <p><strong>Ingredients:</strong> <%=recipeSelect.ingredients.length%></p>
+                           
+
+
+                           
+                        </div>
+                         <div class="col-6">
+                            <p><strong>Difficulty:</strong> <%=recipeSelect.difficulty%></p>
+                            <p><strong>Prep Time:</strong> <%=recipeSelect.prepTime%> minutes</p>
+                            <p><strong>Servings:</strong> <%=recipeSelect.servings%></p>
+                           
+
+
+                           
+                        </div>
+
+                    </div>
+                    
+                    <div class="alert alert-danger mt-3" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"> </i>This recipe will be permanently deleted!   
+
+                    </div>
+                    <% } %>
+                </div>
+               
+            </div> 
+            <div class ="form-check my-3">
+                <input type="checkbox" class="form-check-input" id="confirmationCheckbox" style="border-color: red;" required>
+                <label for="confirmationCheckbox" class="form-check-label text-danger">
+                    I understand that this action cannot be undone and I want to permenantly delete this recipe.
+                </label>
+
+            </div>
+            <div class="d-flex justify-content-end">
+                <div>
+                <a href="/api/all-recipes-33968748?userId=<%= user.userId %>" class="btn q-action-button" style="--border-color: black;">Back to Recipes</a>
+                <a href="/api/delete-recipe-33968748?userId=<%= user.userId %>" class="btn q-action-button" style="--border-color: rgb(48, 48, 212);" >Reset Selection</a>
+
+              <button type="submit" class="btn q-action-button" style="--border-color: red;" <% if (!recipeSelect) { %> disabled <% } %>>
+            Delete Recipe
+        </button>
+
+</div>
+            </div>
+        
+        </form>
+           
+
+           
+</div>
+
+
+        
+
+        </form>
+        </div>
+</div>
+<%- include('partials/footer', {pageName : "Delete Recipe"}) %>   
