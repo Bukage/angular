@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "concurrently -k -r \"npm:start --workspace frontend\" \"nodemon api-server.js\"",
+    "api": "node api-server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +19,9 @@
     "express": "^5.1.0",
     "mongoose": "^8.19.2",
     "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.10"
   }
 }
