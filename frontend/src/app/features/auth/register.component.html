@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="mt-3 d-flex gap-2">
-        <button class="btn btn-primary" [disabled]="form.invalid || loading">Create account</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">Create account</button>
         <a routerLink="/login" class="btn btn-outline-secondary">Back to login</a>
       </div>
       <div class="text-danger mt-2" *ngIf="error">{{ error }}</div>
