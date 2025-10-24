@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "dev": "concurrently -k -r \"npm:start --workspace frontend\" \"nodemon api-server.js\"",
-    "api": "node api-server.js"
+    "start": "node backend/api-server.js",
+    "dev": "concurrently -k -r \"npm:start --workspace frontend\" \"nodemon backend/api-server.js\"",
+    "api": "node backend/api-server.js"
   },
   "keywords": [],
   "author": "",

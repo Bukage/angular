@@ -8,69 +8,7 @@ import { RecipesService } from './recipes.service';
   selector: 'app-recipe-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  template: `
-    <div class="container mt-4" style="max-width: 800px;">
-      <h3 class="mb-3">{{ isEdit ? 'Edit Recipe' : 'New Recipe' }}</h3>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="row g-3">
-          <div class="col-12">
-            <label class="form-label">Title</label>
-            <input class="form-control" formControlName="title" />
-          </div>
-          <div class="col-12 col-md-6">
-            <label class="form-label">Cuisine Type</label>
-            <select class="form-select" formControlName="cuisineType">
-              <option>Italian</option>
-              <option>Asian</option>
-              <option>Mexican</option>
-              <option>American</option>
-              <option>French</option>
-              <option>Indian</option>
-              <option>Mediterranean</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="col-6 col-md-3">
-            <label class="form-label">Prep Time (min)</label>
-            <input type="number" class="form-control" formControlName="prepTime" />
-          </div>
-          <div class="col-6 col-md-3">
-            <label class="form-label">Difficulty</label>
-            <select class="form-select" formControlName="difficulty">
-              <option>Easy</option>
-              <option>Medium</option>
-              <option>Hard</option>
-            </select>
-          </div>
-          <div class="col-6 col-md-3">
-            <label class="form-label">Servings</label>
-            <input type="number" class="form-control" formControlName="servings" />
-          </div>
-          <div class="col-6 col-md-3">
-            <label class="form-label">Meal Type</label>
-            <select class="form-select" formControlName="mealType">
-              <option>Breakfast</option>
-              <option>Lunch</option>
-              <option>Dinner</option>
-              <option>Snack</option>
-            </select>
-          </div>
-          <div class="col-12">
-            <label class="form-label">Ingredients (one per line)</label>
-            <textarea class="form-control" rows="5" formControlName="ingredients"></textarea>
-          </div>
-          <div class="col-12">
-            <label class="form-label">Instructions (one step per line)</label>
-            <textarea class="form-control" rows="5" formControlName="instructions"></textarea>
-          </div>
-        </div>
-        <div class="mt-3 d-flex gap-2">
-          <button class="btn btn-primary" [disabled]="form.invalid">{{ isEdit ? 'Save' : 'Create' }}</button>
-          <a routerLink="/recipes" class="btn btn-outline-secondary">Cancel</a>
-        </div>
-      </form>
-    </div>
-  `,
+  templateUrl: './recipe-form.component.html',
 })
 export class RecipeFormComponent implements OnInit {
   isEdit = false;
