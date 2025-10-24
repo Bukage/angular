@@ -15,74 +15,7 @@ interface DashboardResponse {
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="container">
-      <div class="d-flex justify-content-center" style="margin-top: 50px;">
-        <div class="card" style="width: 94%; padding: 20px; text-align: left;">
-          <h2 class="mb-4">Welcome back, <span style="font-weight: bold;">{{ user()?.fullname }}!</span></h2>
-          <h5><span style="font-weight: bold;">User ID:</span> {{ user()?.userId }}</h5>
-          <h5><span style="font-weight: bold;">Email:</span> {{ user()?.email }}</h5>
-          <h5><span style="font-weight: bold;">Role:</span> {{ user()?.role }}</h5>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-center" style="margin-top: 35px;">
-        <div style="width: 94%;">
-          <div class="row d-flex justify-content-around">
-            <div class="column-overview" style="width: 32%;">
-              <h3>{{ stats?.userCount ?? 0 }}</h3>
-              <h5>Total Users</h5>
-            </div>
-            <div class="column-overview" style="width: 32%;">
-              <h3>{{ stats?.recipeCount ?? 0 }}</h3>
-              <h5>Total Recipes</h5>
-            </div>
-            <div class="column-overview" style="width: 32%;">
-              <h3>{{ stats?.inventoryCount ?? 0 }}</h3>
-              <h5>Inventory Items</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <h2 class="mt-5">Quick Actions</h2>
-
-      <div class="d-flex justify-content-center" style="margin-top: 35px;">
-        <div class="row d-flex justify-content-center" style="width: 94%;">
-          <div class="col-12 col-md-6 col-lg-5 mb-4" *ngIf="user()?.role === 'chef'">
-            <div class="card h-100">
-              <div class="card-header" style="background-color: rgb(215, 138, 112);">
-                <i class="bi bi-list-ol me-2"></i>
-                <span class="fw-bold">Recipe Actions</span>
-              </div>
-              <div class="card-body" style="padding-top: 30px; padding-bottom: 30px;">
-                <div class="btn-group-vertical" style="width: 70%;">
-                  <a routerLink="/recipes/new" class="btn q-action-button" style="--border-color: rgb(215, 138, 112);">Add Recipe</a>
-                  <a routerLink="/recipes" class="btn q-action-button" style="--border-color: rgb(215, 138, 112);">View All Recipes</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-5 mb-4">
-            <div class="card h-100">
-              <div class="card-header" style="background-color: rgb(157, 100, 117);">
-                <i class="bi bi-inboxes me-2"></i>
-                <span class="fw-bold">Inventory Actions</span>
-              </div>
-              <div class="card-body" style="padding-top: 30px; padding-bottom: 30px;">
-                <div class="btn-group-vertical" style="width: 70%;">
-                  <a routerLink="/inventory/new" class="btn q-action-button" style="--border-color: rgb(157, 100, 117);">Add Inventory Item</a>
-                  <a routerLink="/inventory" class="btn q-action-button" style="--border-color: rgb(157, 100, 117);">View Inventory</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();

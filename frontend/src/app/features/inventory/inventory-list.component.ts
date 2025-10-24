@@ -7,75 +7,7 @@ import { InventoryService, InventoryListResponse } from './inventory.service';
   selector: 'app-inventory-list',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  template: `
-    <div class="container mt-4">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Inventory</h3>
-        <a routerLink="/inventory/new" class="btn btn-primary">Add Item</a>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col">
-          <div class="card p-3 text-center">
-            <div class="h4">{{ data?.inventoryStats?.totalItems ?? 0 }}</div>
-            <div>Total Items</div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card p-3 text-center">
-            <div class="h4">{{ (data?.inventoryStats?.totalValue ?? 0) | number:'1.2-2' }}</div>
-            <div>Total Value</div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card p-3 text-center">
-            <div class="h4">{{ data?.inventoryStats?.expiringSoonCount ?? 0 }}</div>
-            <div>Expiring ≤7 days</div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card p-3 text-center">
-            <div class="h4">{{ data?.inventoryStats?.lowStockCount ?? 0 }}</div>
-            <div>Low Stock</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Qty</th>
-              <th>Unit</th>
-              <th>Category</th>
-              <th>Expires</th>
-              <th>Location</th>
-              <th>Cost</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let it of data?.inventory ?? []">
-              <td>{{ it.inventoryId }}</td>
-              <td>{{ it.ingredientName }}</td>
-              <td [class.text-danger]="it.quantity < 5">{{ it.quantity }}</td>
-              <td>{{ it.unit }}</td>
-              <td>{{ it.category }}</td>
-              <td>{{ it.expirationDate | date:'yyyy-MM-dd' }}</td>
-              <td>{{ it.location }}</td>
-              <td>{{ it.cost | number:'1.2-2' }}</td>
-              <td class="text-end">
-                <a [routerLink]="['/inventory', it.inventoryId, 'edit']" class="btn btn-sm btn-outline-secondary me-2">Edit</a>
-                <button class="btn btn-sm btn-outline-danger" (click)="onDelete(it.inventoryId)">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `,
+  templateUrl: './inventory-list.component.html',
 })
 export class InventoryListComponent implements OnInit {
   data: InventoryListResponse | null = null;

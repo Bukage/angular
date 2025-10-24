@@ -8,31 +8,7 @@ import { AuthService } from '../../core/auth.service';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  template: `
-    <div class="container" style="max-width: 480px; margin-top: 60px;">
-      <div class="card p-4">
-        <h2 class="mb-3">Login</h2>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" formControlName="email" />
-            <div class="text-danger small" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
-              Enter a valid email
-            </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control" formControlName="password" />
-          </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-primary" [disabled]="form.invalid || loading">Login</button>
-            <a routerLink="/register" class="btn btn-outline-secondary">Register</a>
-          </div>
-          <div class="text-danger mt-2" *ngIf="error">{{ error }}</div>
-        </form>
-      </div>
-    </div>
-  `,
+  templateUrl: './login.component.html',
 })
 export class LoginComponent {
   loading = false;
