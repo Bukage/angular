@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 
-// Models (reusing Assignment 2 schemas at repo root)
-const Recipe = require('./Recipe');
-const User = require('./User');
-const Inventory = require('./UserInventory');
+// Models
+const Recipe = require('./models/Recipe');
+const User = require('./models/User');
+const Inventory = require('./models/UserInventory');
 
 const RECIPE = 'Recipe';
 const USER = 'User';
@@ -402,7 +402,8 @@ app.delete('/api/inventory-33968748/:inventoryId', requireUser, async (req, res)
 });
 
 // ---------- Serve Angular build if available ----------
-const angularDist = path.join(__dirname, 'frontend', 'dist', 'frontend', 'browser');
+// Note: __dirname is /workspace/backend after the re-org
+const angularDist = path.join(__dirname, '..', 'frontend', 'dist', 'frontend', 'browser');
 app.use(express.static(angularDist));
 // Catch-all for non-API routes (Express 5 compatible)
 app.get(/^\/(?!api\/).*/, (req, res, next) => {
